@@ -4,8 +4,8 @@ require File.expand_path('../lib/sinatra/google-auth/version', __FILE__)
 Gem::Specification.new do |gem|
   gem.authors       = ["Chris Continanza"]
   gem.email         = ["christopher.continanza@gmail.com"]
-  gem.description   = %q{TODO: Write a gem description}
-  gem.summary       = %q{TODO: Write a gem summary}
+  gem.description   = %q{Drop-in google auth for sinatra apps}
+  gem.summary       = %q{Helpers and routes for google open-id authentication for Sinatra.}
   gem.homepage      = ""
 
   gem.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
