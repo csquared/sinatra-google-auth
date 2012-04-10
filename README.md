@@ -2,7 +2,6 @@
 
 Drop-in authentication for Sinatra with Google's OpenID endpoint.
 
-
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -31,7 +30,7 @@ or before requiring
 ```ruby
 ENV['GOOGLE_AUTH_URL'] = 'http://myurl.com/openid'
 
-require 'sinatra/base'
+require 'sinatra'
 require 'sinatra/google-auth'
 ```
 
