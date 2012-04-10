@@ -14,4 +14,6 @@ Gem::Specification.new do |gem|
   gem.name          = "sinatra-google-auth"
   gem.require_paths = ["lib"]
   gem.version       = Sinatra::GoogleAuth::VERSION
+
+  gem.add_dependency 'omniauth-openid'
 end

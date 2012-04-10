@@ -21,9 +21,10 @@ module Sinatra
     end
 
     def self.registered(app)
+      raise "Must supply ENV var GOOGLE_AUTH_URL" unless ENV['GOOGLE_AUTH_URL']
       app.helpers GoogleAuth::Helpers
       app.use ::Rack::Session::Cookie, :secret => ENV['SESSION_SECRET'] || SecureRandom.hex(64)
-      app.use ::OmniAuth::Strategies::OpenID, :name => "google", :identifier => "http://heroku.com/openid" 
+      app.use ::OmniAuth::Strategies::OpenID, :name => "google", :identifier => ENV['GOOGLE_AUTH_URL']
 
       app.get "/auth/:provider/callback" do
         handle_authentication_callback

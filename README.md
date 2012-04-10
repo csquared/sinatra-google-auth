@@ -22,6 +22,8 @@ Or install it yourself as:
 The gem exposes a single `authenticate` helper that protects the endpoint with
 Google OpenID authentication.
 
+Configure your google openid endpoint via setting the ENV var: GOOGLE_AUTH_URL
+
 ### Classic-Style Apps
 
 ```ruby
