@@ -38,7 +38,7 @@ require 'sinatra/google-auth'
 ### Classic-Style Apps
 
 ```ruby
-require 'sinatra/base'
+require 'sinatra'
 require 'sinatra/google-auth'
 
 get '*' do
