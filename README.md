@@ -24,6 +24,16 @@ Google OpenID authentication.
 
 Configure your google openid endpoint via setting the ENV var: GOOGLE_AUTH_URL
 
+    $ export GOOGLE_AUTH_URL=http://myurl.com/openid
+
+    or
+
+
+```ruby
+  ENV['GOOGLE_AUTH_URL'] = 'http://myurl.com/openid'
+```
+
+
 ### Classic-Style Apps
 
 ```ruby
