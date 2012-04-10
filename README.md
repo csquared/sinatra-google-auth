@@ -1,6 +1,7 @@
 # Sinatra::Google::Auth
 
-TODO: Write a gem description
+Drop
+
 
 ## Installation
 
@@ -18,7 +19,40 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+The gem exposes a single `authenticate` helper that protects the endpoint with
+Google OpenID authentication.
+
+### Classic-Style Apps
+
+```ruby
+require 'sinatra/base
+require 'sinatra/google-auth'
+
+get '*' do
+  authenticate
+  'hello'
+end
+```
+
+
+### Modular Apps
+
+```ruby
+require 'sinatra/base
+require 'sinatra/google-auth'
+
+class App < Sinatra::Base
+  register Sinatra::GoogleAuth
+
+  get '*' do
+    authenticate
+    'hello'
+  end
+end
+```
+
+
+
 
 ## Contributing
 
