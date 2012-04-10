@@ -1,6 +1,6 @@
-# Sinatra::Google::Auth
+# Sinatra::GoogleAuth
 
-Drop
+Drop-in authentication for Sinatra with Google's OpenID endpoint.
 
 
 ## Installation
