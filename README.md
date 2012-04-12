@@ -21,20 +21,6 @@ Or install it yourself as:
 The gem exposes a single `authenticate` helper that protects the endpoint with
 Google OpenID authentication.
 
-Configure your Google OpenID endpoint via setting the ENV var `GOOGLE_AUTH_URL`
-
-    $ export GOOGLE_AUTH_URL=http://myurl.com/openid
-
-or before requiring 
-
-```ruby
-ENV['GOOGLE_AUTH_URL'] = 'http://myurl.com/openid'
-
-require 'sinatra'
-require 'sinatra/google-auth'
-```
-
-
 ### Classic-Style Apps
 
 ```ruby
@@ -64,7 +50,33 @@ class App < Sinatra::Base
 end
 ```
 
+## Configuration 
 
+### Google Endpoint
+
+Configure your Google OpenID endpoint via setting the ENV var `GOOGLE_AUTH_URL`
+
+    $ export GOOGLE_AUTH_URL=http://myurl.com/openid
+
+or before requiring 
+
+```ruby
+ENV['GOOGLE_AUTH_URL'] = 'http://myurl.com/openid'
+
+require 'sinatra'
+require 'sinatra/google-auth'
+```
+
+### Session Secret 
+
+Configure your session secret by setting `SESSION_SECRET` or `SECURE_KEY` ENV vars.
+
+
+    $ export SESSION_SECRET='super secure secret'
+
+The 'SecureKey' add-on sets the `SECURE_KEY` variable for you and automatically rotates it.
+
+    $ heroku addons:add securekey
 
 
 ## Contributing

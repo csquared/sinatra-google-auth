@@ -20,10 +20,14 @@ module Sinatra
       end
     end
 
+    def self.secret
+      ENV['SESSION_SECRET'] || ENV['SECURE_KEY'] || 'please change me'
+    end
+
     def self.registered(app)
       raise "Must supply ENV var GOOGLE_AUTH_URL" unless ENV['GOOGLE_AUTH_URL']
       app.helpers GoogleAuth::Helpers
-      app.use ::Rack::Session::Cookie, :secret => ENV['SESSION_SECRET'] || SecureRandom.hex(64)
+      app.use ::Rack::Session::Cookie, :secret => secret
       app.use ::OmniAuth::Strategies::OpenID, :name => "google", :identifier => ENV['GOOGLE_AUTH_URL']
 
       app.get "/auth/:provider/callback" do
@@ -38,4 +42,3 @@ module Sinatra
 
   register GoogleAuth
 end
-
