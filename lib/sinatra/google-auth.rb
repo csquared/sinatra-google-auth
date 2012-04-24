@@ -13,6 +13,7 @@ module Sinatra
       def handle_authentication_callback
         unless session["user"]
           user_info = request.env["omniauth.auth"].info
+          on_user(user_info) if respond_to? :on_user
           session["user"] = Array(user_info.email).first.downcase
         end
 

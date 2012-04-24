@@ -50,6 +50,25 @@ class App < Sinatra::Base
 end
 ```
 
+## Doing something with the User
+
+Define an `on_user` method in your app to do something with the user info after authentication.
+
+```ruby
+class App < Sinatra::Base
+  register Sinatra::GoogleAuth
+
+  def on_user(info)
+    puts info.inspect
+  end
+
+  get '*' do
+    authenticate
+    'hello'
+  end
+end
+```
+
 ## Configuration 
 
 ### Google Endpoint
