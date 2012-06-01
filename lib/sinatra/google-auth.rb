@@ -6,7 +6,12 @@ module Sinatra
     module Helpers
       def authenticate
         unless session["user"]
-          redirect to "/auth/google"
+          session['google-auth-redirect'] = request.path
+          if settings.absolute_redirect?
+            redirect "/auth/google"
+          else
+            redirect to "/auth/google"
+          end
         end
       end
 
@@ -17,7 +22,8 @@ module Sinatra
           session["user"] = Array(user_info.email).first.downcase
         end
 
-        redirect to "/"
+        url = session['google-auth-redirect'] || to("/")
+        redirect url
       end
     end
 
@@ -30,6 +36,7 @@ module Sinatra
       app.helpers GoogleAuth::Helpers
       app.use ::Rack::Session::Cookie, :secret => secret
       app.use ::OmniAuth::Strategies::OpenID, :name => "google", :identifier => ENV['GOOGLE_AUTH_URL']
+      app.set :absolute_redirect, false
 
       app.get "/auth/:provider/callback" do
         handle_authentication_callback
