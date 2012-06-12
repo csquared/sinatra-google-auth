@@ -21,6 +21,25 @@ Or install it yourself as:
 The gem exposes a single `authenticate` helper that protects the endpoint with
 Google OpenID authentication.
 
+As of version 0.0.7. you can also use `Sinatra::GoogleAuth::Middleware` to protect your whole app
+and/or control where the authentication happens in a middleware chain.
+
+### Middleware
+
+```ruby
+require 'sinatra/base'
+require 'sinatra/google-auth'
+
+class App < Sinatra::Base
+  register Sinatra::GoogleAuth
+  use Sinatra::GoogleAuth::Middleware
+
+  get '*' do
+    'hello'
+  end
+end
+```
+
 ### Classic-Style Apps
 
 ```ruby
@@ -32,7 +51,6 @@ get '*' do
   'hello'
 end
 ```
-
 
 ### Modular Apps
 
@@ -69,7 +87,7 @@ class App < Sinatra::Base
 end
 ```
 
-## Configuration 
+## Configuration
 
 ### Google Endpoint
 
@@ -77,7 +95,7 @@ Configure your Google OpenID endpoint via setting the ENV var `GOOGLE_AUTH_URL`
 
     $ export GOOGLE_AUTH_URL=http://myurl.com/openid
 
-or before requiring 
+or before requiring
 
 ```ruby
 ENV['GOOGLE_AUTH_URL'] = 'http://myurl.com/openid'
@@ -86,7 +104,7 @@ require 'sinatra'
 require 'sinatra/google-auth'
 ```
 
-### Session Secret 
+### Session Secret
 
 Configure your session secret by setting `SESSION_SECRET` or `SECURE_KEY` ENV vars.
 

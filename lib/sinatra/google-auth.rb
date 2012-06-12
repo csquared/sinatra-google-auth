@@ -3,6 +3,21 @@ require 'omniauth-openid'
 module Sinatra
   module GoogleAuth
 
+    class Middleware
+      def initialize(app)
+        @app = app
+      end
+
+      def call(env)
+        if env['rack.session']["user"] || ENV['REQUEST_PATH'] == '/auth/google/callback'
+          @app.call(env)
+        else
+          env['rack.session']['google-auth-redirect'] = ENV['REQUEST_PATH']
+          return [301, {'Content-Type' => 'text/html', 'Location' => '/auth/google'}, []]
+        end
+      end
+    end
+
     module Helpers
       def authenticate
         unless session["user"]
