@@ -9,7 +9,7 @@ module Sinatra
       end
 
       def call(env)
-        if env['rack.session']["user"] || env['REQUEST_PATH'] =~ /^\/auth^\/google/
+        if env['rack.session']["user"] || env['REQUEST_PATH'] =~ /^\/auth\/google/
           @app.call(env)
         else
           env['rack.session']['google-auth-redirect'] = env['REQUEST_PATH']
