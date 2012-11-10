@@ -1,4 +1,5 @@
-require 'omniauth-openid'
+require 'omniauth-google-apps'
+require 'openid/store/filesystem'
 
 module Sinatra
   module GoogleAuth
@@ -9,11 +10,11 @@ module Sinatra
       end
 
       def call(env)
-        if env['rack.session']["user"] || env['REQUEST_PATH'] =~ /^\/auth\/google/
+        if env['rack.session']["user"] || env['REQUEST_PATH'] =~ /^\/auth\/google_apps/
           @app.call(env)
         else
           env['rack.session']['google-auth-redirect'] = env['REQUEST_PATH']
-          return [301, {'Content-Type' => 'text/html', 'Location' => '/auth/google'}, []]
+          return [301, {'Content-Type' => 'text/html', 'Location' => '/auth/google_apps'}, []]
         end
       end
     end
@@ -23,9 +24,9 @@ module Sinatra
         unless session["user"]
           session['google-auth-redirect'] = request.path
           if settings.absolute_redirect?
-            redirect "/auth/google"
+            redirect "/auth/google_apps"
           else
-            redirect to "/auth/google"
+            redirect to "/auth/google_apps"
           end
         end
       end
@@ -47,10 +48,13 @@ module Sinatra
     end
 
     def self.registered(app)
-      raise "Must supply ENV var GOOGLE_AUTH_URL" unless ENV['GOOGLE_AUTH_URL']
+      raise "Must supply ENV var GOOGLE_AUTH_DOMAIN" unless ENV['GOOGLE_AUTH_DOMAIN']
       app.helpers GoogleAuth::Helpers
       app.use ::Rack::Session::Cookie, :secret => secret
-      app.use ::OmniAuth::Strategies::OpenID, :name => "google", :identifier => ENV['GOOGLE_AUTH_URL']
+      app.use ::OmniAuth::Builder do
+        provider :google_apps, domain: ENV['GOOGLE_AUTH_DOMAIN']
+      end
+
       app.set :absolute_redirect, false
 
       app.get "/auth/:provider/callback" do

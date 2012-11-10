@@ -93,12 +93,12 @@ end
 
 Configure your Google OpenID endpoint via setting the ENV var `GOOGLE_AUTH_URL`
 
-    $ export GOOGLE_AUTH_URL=http://myurl.com/openid
+    $ export GOOGLE_AUTH_DOMAIN=heroku.com
 
 or before requiring
 
 ```ruby
-ENV['GOOGLE_AUTH_URL'] = 'http://myurl.com/openid'
+ENV['GOOGLE_AUTH_URL'] = 'heroku.com'
 
 require 'sinatra'
 require 'sinatra/google-auth'
