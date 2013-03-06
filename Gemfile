@@ -6,4 +6,5 @@ gemspec
 group :development do
   gem 'turn'
   gem 'sinatra'
+  gem 'thin'
 end
