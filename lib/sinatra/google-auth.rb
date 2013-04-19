@@ -53,7 +53,7 @@ module Sinatra
       app.helpers GoogleAuth::Helpers
       app.use ::Rack::Session::Cookie, :secret => secret
       app.use ::OmniAuth::Builder do
-        provider :google_apps, domain: ENV['GOOGLE_AUTH_DOMAIN']
+        provider :google_apps, :domain => ENV['GOOGLE_AUTH_DOMAIN']
       end
 
       app.set :absolute_redirect, false
