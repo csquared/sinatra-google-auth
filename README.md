@@ -8,6 +8,25 @@ Add this line to your application's Gemfile:
 
     gem 'sinatra-google-auth'
 
+
+### Temporary Workaround
+
+Google has changed their implementation that requires a patch to the `ruby-openid` gem.
+
+See here for discussion:
+https://github.com/openid/ruby-openid/issues/51
+
+For now, you have to add:
+
+    gem "ruby-openid",
+      :git => "git://github.com/kendagriff/ruby-openid.git",
+      :ref => "79beaa419d4754e787757f2545331509419e222e"
+
+To your Gemfile if you're getting an OmniAuth Error
+
+
+### Installation Continued
+
 And then execute:
 
     $ bundle
