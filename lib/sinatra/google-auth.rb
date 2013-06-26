@@ -52,9 +52,7 @@ module Sinatra
       raise "Must supply ENV var GOOGLE_AUTH_DOMAIN" unless ENV['GOOGLE_AUTH_DOMAIN']
       app.helpers GoogleAuth::Helpers
       app.use ::Rack::Session::Cookie, :secret => secret
-      app.use ::OmniAuth::Builder do
-        provider :google_apps, domain: ENV['GOOGLE_AUTH_DOMAIN']
-      end
+      app.use OmniAuth::Strategies::GoogleApps, :domain => ENV['GOOGLE_AUTH_DOMAIN'], :store => nil
 
       app.set :absolute_redirect, false
 

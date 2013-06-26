@@ -16,5 +16,5 @@ Gem::Specification.new do |gem|
   gem.version       = Sinatra::GoogleAuth::VERSION
 
   gem.add_dependency 'omniauth-google-apps'
-  gem.add_dependency 'oa-openid'
+  gem.add_dependency 'ruby-openid'
 end
