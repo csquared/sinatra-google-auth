@@ -1,5 +1,6 @@
 require 'omniauth-google-apps'
 require 'openid/store/filesystem'
+require 'securerandom'
 
 module Sinatra
   module GoogleAuth
@@ -45,7 +46,7 @@ module Sinatra
     end
 
     def self.secret
-      ENV['SESSION_SECRET'] || ENV['SECURE_KEY'] || 'please change me'
+      ENV['SESSION_SECRET'] || ENV['SECURE_KEY'] || SecureRandom.hex(64)
     end
 
     def self.registered(app)
